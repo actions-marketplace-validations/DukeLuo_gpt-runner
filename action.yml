@@ -15,9 +15,9 @@ runs:
         node-version: "18.16.0"
 
     - name: Install promptr
-      env:
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       run: npm install -g @ifnotnowwhen/promptr
+      shell: bash
 
     - name: Run promptr
       run: ${{ inputs.cmd }}
+      shell: bash
