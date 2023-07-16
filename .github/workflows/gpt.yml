@@ -1,0 +1,30 @@
+name: GPT Workflow
+
+on: workflow_dispatch
+
+permissions:
+  pull-requests: write
+  contents: write
+
+env:
+  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+jobs:
+  build_and_run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run GPT Prompt
+        uses: DukeLuo/gpt-runner@main
+        with:
+          cmd: promptr -m gpt-3.5-turbo-0613 -p "Translate into Chinese" README.md -o README_zh.md
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          branch: add-readme-zh
+          title: "docs: Add README_zh.md"
+          commit-message: "docs: Add README_zh.md"
