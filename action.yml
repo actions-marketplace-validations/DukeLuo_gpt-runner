@@ -1,0 +1,23 @@
+name: "GPT Runner"
+description: "Run GPT Prompt from GitHub Actions"
+
+inputs:
+  cmd:
+    description: "The promptr cmd you want to run"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Node 18.16.0
+      uses: actions/setup-node@v3
+      with:
+        node-version: "18.16.0"
+
+    - name: Install promptr
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      run: npm install -g @ifnotnowwhen/promptr
+
+    - name: Run promptr
+      run: ${{ inputs.cmd }}
