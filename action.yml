@@ -1,5 +1,10 @@
 name: "GPT Runner"
 description: "Run GPT Prompt from GitHub Actions"
+author: Huan Luo <dukeluo@outlook.com> (https://shaiwang.life)
+
+branding:
+  color: orange
+  icon: cpu
 
 inputs:
   cmd:
