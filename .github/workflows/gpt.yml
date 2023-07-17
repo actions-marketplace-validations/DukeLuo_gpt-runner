@@ -6,9 +6,6 @@ permissions:
   pull-requests: write
   contents: write
 
-env:
-  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-
 jobs:
   build_and_run:
     runs-on: ubuntu-latest
@@ -19,8 +16,10 @@ jobs:
 
       - name: Run GPT Prompt
         uses: DukeLuo/gpt-runner@main
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         with:
-          cmd: promptr -m gpt-3.5-turbo-0613 -p "Translate into Chinese" README.md -o README_zh.md
+          cmd: promptr -m gpt-3.5-turbo -p "You are a super developer who is fluent in both Chinese and English. Please create a new file called README_zh.md with the Chinese translation of README.md"
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
